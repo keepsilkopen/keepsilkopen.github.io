@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Twitch Video Embed</title>
+  <title>Twitch Stream Embed for Amazon Silk</title>
   <style>
     html, body {
-      height: 100%;
+      height: 80%;
       margin: 0;
       padding: 0;
     }
     #twitchEmbed {
-      width: 100%;
-      height: 100%;
+      width: 80%;
+      height: 80%;
     }
   </style>
+  <script src="script.js"></script>
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
 <body>
+  <div>
+    <label for="usernameInput">Twitch username:</label>
+    <input type="text" id="usernameInput">
+    <button onclick="embedStream()">Embed</button>
+  </div>
+
   <div id="twitchEmbed"></div>
 
   <script>
-    var options = {
-      width: '100%',
-      height: '100%',
-      channel: 'rpglimitbreak',
-      parent: window.location.hostname,
-    };
-
-    var player = new Twitch.Player("twitchEmbed", options);
-    player.setVolume(0.5);
+    function embedStream() {
+      var username = document.getElementById('usernameInput').value;
+      
+      var options = {
+        width: '80%',
+        height: '80%',
+        channel: username,
+        parent: window.location.hostname,
+      };
+  
+      var player = new Twitch.Player("twitchEmbed", options);
+      player.setVolume(0.5);
+    }
   </script>
 </body>
 </html>
