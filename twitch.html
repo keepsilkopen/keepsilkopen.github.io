@@ -8,35 +8,70 @@
       margin: 0;
       padding: 0;
     }
-    #twitchEmbed {
+    #twitchEmbedContainer {
       width: 80%;
-      height: 80%;
+      height: 500px;
+      margin-bottom: 20px;
+    }
+    .embed-button {
+      background-color: #6441A4;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 8px 15px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .embed-button:hover {
+      background-color: #522C85;
+    }
+    .button-container {
+      margin-bottom: 20px;
     }
   </style>
-  <script src="script.js"></script>
+  <script>
+    var AlwaysUseSilk = true;
+  </script>
+  <script defer src="script.js"></script>
   <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </head>
 <body>
   <div>
     <label for="usernameInput">Twitch username:</label>
     <input type="text" id="usernameInput">
-    <button onclick="embedStream()">Embed</button>
+    <button class="embed-button" onclick="embedStream()">Embed</button>
   </div>
 
-  <div id="twitchEmbed"></div>
+  <div class="button-container">
+    <button onclick="embedStream('RetroLongplay')">RetroLongplay</button>
+    <button onclick="embedStream('nostalgia_ttv')">nostalgia_ttv</button>
+    <button onclick="embedStream('CartoonDystopiaa')">CartoonDystopiaa</button>
+    <button onclick="embedStream('classixrewind')">classixrewind</button>
+    <button onclick="embedStream('JustCommercials')">JustCommercials</button>
+  </div>
+
+  <div id="twitchEmbedContainer"></div>
 
   <script>
-    function embedStream() {
-      var username = document.getElementById('usernameInput').value;
-      
+    var player;
+
+    function embedStream(username) {
+      var inputField = document.getElementById('usernameInput');
+      username = username || inputField.value;
+
       var options = {
         width: '100%',
         height: '100%',
         channel: username,
         parent: window.location.hostname,
       };
-  
-      var player = new Twitch.Player("twitchEmbed", options);
+
+      if (player) {
+        player.destroy();
+      }
+
+      player = new Twitch.Player("twitchEmbedContainer", options);
       player.setVolume(0.5);
     }
   </script>
